@@ -62,7 +62,7 @@ app.delete("/users/:id", async (req,res)=>{
     try {
         const {id} = req.params;
         const deleteUser = await pool.query("DELETE FROM userlist WHERE user_id = $1 RETURNING *",[id])
-        res.json(deleteUser)
+        res.json(deleteUser.rows[0])
     } catch (err) {
         console.log(err.message)
     }
