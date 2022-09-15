@@ -57,6 +57,17 @@ app.put("/users/:id", async (req,res)=>{
     }
 })
 
+// delete a todo
+app.delete("/users/:id", async (req,res)=>{
+    try {
+        const {id} = req.params;
+        const deleteUser = await pool.query("DELETE FROM userlist WHERE user_id = $1 RETURNING *",[id])
+        res.json(deleteUser)
+    } catch (err) {
+        console.log(err.message)
+    }
+})
+
 
 app.listen(5000,()=>{
     console.log("backend server is running")
